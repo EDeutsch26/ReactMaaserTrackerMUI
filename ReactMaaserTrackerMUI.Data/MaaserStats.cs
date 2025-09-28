@@ -2,7 +2,7 @@
 {
     public class MaaserStats
     {
-        public int TotalIncome { get; set; }
-        public int TotalDonated { get; set; }
+        public decimal TotalIncome { get; set; }
+        public decimal TotalDonated { get; set; }
     }
 }

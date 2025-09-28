@@ -109,7 +109,7 @@ namespace ReactMaaserTrackerMUI.Data
         {
 
             var ctx = new MaaserTrackerDataContext(_connectionS);
-            return ctx.IncomeSources.Include(i => i.Incomes).FirstOrDefault(i => i.Id ==id).Incomes.Count != 0;
+            return ctx.IncomeSources.Include(i => i.Incomes).FirstOrDefault(i => i.Id == id).Incomes.Count != 0;
         }
 
         public string GetIcomeSourceNameById(int incomeSourceId)
@@ -117,6 +117,13 @@ namespace ReactMaaserTrackerMUI.Data
             var ctx = new MaaserTrackerDataContext(_connectionS);
 
             return ctx.IncomeSources.Find(incomeSourceId).Name;
+        }
+
+        public void DeactivateSource(int sourceId)
+        {
+            var ctx = new MaaserTrackerDataContext(_connectionS);
+            ctx.IncomeSources.Find(sourceId).IsActive = false;
+            ctx.SaveChanges();
         }
     }
 }

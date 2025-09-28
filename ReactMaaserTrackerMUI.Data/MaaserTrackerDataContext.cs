@@ -21,6 +21,28 @@ namespace ReactMaaserTrackerMUI.Data
             optionsBuilder.UseSqlServer(_connectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Restrict cascade delete for all relationships pointing to IncomeSource
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                foreach (var foreignKey in entityType.GetForeignKeys())
+                {
+                    if (foreignKey.PrincipalEntityType.ClrType == typeof(IncomeSource))
+                    {
+                        foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+                    }
+                }
+            }
+
+            // Optional: Explicit configuration for Income → IncomeSource
+            modelBuilder.Entity<Income>()
+                .HasOne(i => i.IncomeSource)
+                .WithMany(s => s.Incomes)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
 
 
         //public DbSet<User> Users { get; set; }

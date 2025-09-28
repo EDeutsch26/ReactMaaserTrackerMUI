@@ -11,27 +11,27 @@ const maaserPayments = [
 
 const MaaserPage = () => {
 
-const [donations, setDonations] = useState([])
-const [isLoading, setIsLoading] = useState(true)
+    const [donations, setDonations] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
-useEffect(() => {
-  async function loadDonations() {
-    const {data} = await axios.get('/api/maasertracker/GetDonations')
-  setDonations(data)
-setIsLoading(false)
-  }
-  loadDonations()
-}
-,[])
+    useEffect(() => {
+        async function loadDonations() {
+            const { data } = await axios.get('/api/maasertracker/GetDonations')
+            setDonations(data)
+            setIsLoading(false)
+        }
+        loadDonations()
+    }
+        , [])
 
-  return ( isLoading ? <Loader/> :
-    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3 }}>
-      <Typography variant="h2" gutterBottom component="div">
-        Maaser Payments History
-      </Typography>
-      <MaaserTable maaserPayments={donations}/>
-    </Container>
-  );
+    return (isLoading ? <Loader /> :
+        <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: 3 }}>
+            <Typography variant="h2" gutterBottom component="div">
+                Maaser Payments History
+            </Typography>
+            <MaaserTable maaserPayments={donations} />
+        </Container>
+    );
 }
 
 export default MaaserPage;

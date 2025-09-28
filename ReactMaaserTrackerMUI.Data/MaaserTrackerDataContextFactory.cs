@@ -19,6 +19,8 @@ namespace ReactMaaserTrackerMUI.Data
      .AddJsonFile("appsettings.json")
      .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true).Build();
 
+
+
             return new MaaserTrackerDataContext(config.GetConnectionString("ConStr"));
 
 
